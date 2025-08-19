@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Confirm Email</title>
+  <style>
+   body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #280be4, white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      color: #333;
+    }
+    .container {
+      background: #fff;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+      width: 400px;
+      text-align: center;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    input[type="email"],
+    input[type="text"] {
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #667eea;
+      color: white;
+      border: none;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    button:hover {
+      background: #556cd6;
+    }
+    .message {
+      text-align: center;
+      margin-top: 10px;
+      color: rgb(43, 17, 17);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Confirm Your Email</h2>
+    <form id="confirm-form">
+      <input type="email" name="email" placeholder="Email" required />
+      <input type="text" name="otp" placeholder="Enter OTP" required />
+      <button type="submit">Confirm Email</button>
+      <div class="message" id="message"></div>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('confirm-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const data = Object.fromEntries(formData.entries());
+
+      try {
+        const res = await fetch('http://localhost:3000/auth/confirm-email', {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        });
+
+        const result = await res.json();
+        const messageDiv = document.getElementById('message');
+
+        if (res.ok) {
+          messageDiv.style.color = 'green';
+          messageDiv.textContent = 'Email confirmed successfully!';
+        } else {
+          messageDiv.textContent = result.message || 'Failed to confirm email.';
+        }
+      } catch (error) {
+        document.getElementById('message').textContent = 'An error occurred. Please try again.';
+      }
+    });
+  </script>
+</body>
+</html>
