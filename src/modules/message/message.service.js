@@ -1,6 +1,6 @@
 import { asyncHandler, successResponse } from "../../utils/response.js";
 import * as DBService from '../../DB/db.service.js'
-import { userModel } from "../../DB/models/user.model.js";
+import { userModel } from "../../DB/models/User.model.js";
 import { uploadFiles } from "../../utils/multer/cloudinary.js";
 import { MessageModel } from "../../DB/models/message.model.js";
 
