@@ -10,7 +10,9 @@
   "author": "",
   "license": "ISC",
   "type": "module",
-  "engines": {"node": "22.15.0"},
+  "engines": {
+    "node": "22.15.0"
+  },
   "dependencies": {
     "bcryptjs": "^3.0.2",
     "cloudinary": "^2.7.0",

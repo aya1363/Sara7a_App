@@ -19,7 +19,7 @@ const bootstrap = async () => {
     app.use('/uploads',express.static(path.resolve('./src/uploads')))
     app.use(express.json())
     app.use(cors())
-    app.use(morgan('dev'))
+    app.use(morgan('common'))
     //DB
     await connectDB()
 
